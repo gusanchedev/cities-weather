@@ -9,11 +9,24 @@ async function getCityInfo(city) {
   return data;
 }
 
+function clearScreen() {
+  let citiesList = document.getElementById("cities");
+  citiesList.remove();
+}
+
 const searchButton = document.getElementById("searchCityButton");
+
 searchButton.addEventListener("click", async (e) => {
-  // e.preventDefault();
+  clearScreen();
   const city = document.getElementById("city");
-  console.log(city.value);
   const data = await getCityInfo(city.value);
-  console.log(data);
+  let resultsSection = document.getElementById("results");
+  let citiesList = document.createElement("div");
+  citiesList.id = "cities";
+  resultsSection.append(citiesList);
+  data.forEach((city) => {
+    let cityElement = document.createElement("p");
+    cityElement.innerHTML = `<a href='${city.Key}'>${city.EnglishName} / ${city.Region.LocalizedName} / ${city.Country.LocalizedName} / ${city.AdministrativeArea.LocalizedName}</a>`
+    citiesList.append(cityElement);
+  });
 });
