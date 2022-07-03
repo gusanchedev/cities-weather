@@ -1,12 +1,117 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #F1F4F6;
+  color: #2552AC;
+
 }
 
 header {
   background-color: #2552AC;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.header-branding {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header-branding div {
+  padding: 2rem;
+}
+
+main {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.search {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  background-color: greenyellow;
+  color: #2552AC;
+}
+
+.cities-container {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit , minmax(280px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.city-card {
+  width: 250px;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  background-color: white;
+  text-align: left;
+  border-radius: 15px;
+}
+
+.city-map {
+  padding: 0.4rem 0.4rem 0.4rem 0;
+}
+
+.city-name {
+  font-weight: bold;
+}
+
+.city-data {
+  font-size: 0.7rem;
+}
+
+.city-data p {
+  padding-top: 0.2rem;
 }
 
 footer {
-  background-color: #5AC8D8;
+  background-color: #2552AC;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 2rem;
+}
+
+footer .fa-heart {
+  color: red;
+
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social a {
+  text-decoration: none;
+}
+
+.social a:visited {
+  color: white;
+}
+
+.social div {
+  margin: 0.5rem;
+}
+
+.developedBy a {
+  text-decoration: none;
+  color: greenyellow;
 }

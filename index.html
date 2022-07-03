@@ -14,13 +14,13 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <title>Cities Weather</title>
   </head>
   <body>
     <header>
-      <div>
-        <i class="fa-brands fa-mixcloud"></i>
+      <div class="header-branding">
+        <div><i class="fa-brands fa-mixcloud fa-2xl"></i></div>
         <h1>My Cities Weather</h1>
       </div>
     </header>
@@ -35,25 +35,41 @@
       <section class="results" id="results">
         <h2>Cities Found</h2>
       </section>
-      <section class="current-weather">
+      <section class="current-weather" id="current-weather">
         <h2>Current Weather</h2>
-        <div id="cities"></div>
       </section>
-      <section class="forecast">
+      <section class="forecast" id="forecast">
         <h2>5-Days Forecast</h2>
       </section>
     </main>
     <footer>
       <div class="social">
-        <div><i class="fa-brands fa-twitter"></i></div>
-        <div><i class="fa-brands fa-linkedin"></i></div>
-        <div><i class="fa-brands fa-github"></i></div>
+        <div>
+          <a href="https://twitter.com/gusanchedev" target="_blank"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+        </div>
+        <div>
+          <a href="https://www.linkedin.com/in/gusanchedev/" target="_blank"
+            ><i class="fa-brands fa-linkedin"></i
+          ></a>
+        </div>
+        <div>
+          <a href="https://github.com/gusanchedev" target="_blank"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+        </div>
+        <div>
+          <a href="https://www.gusanche.dev/" target="_blank"
+            ><i class="fa-brands fa-chrome"></i
+          ></a>
+        </div>
       </div>
-      <div><p>&COPY;2022</p></div>
+      <div><p>&COPY; 2022</p></div>
       <div>
-        <p>
-          Developed with <i class="fa-regular fa-heart"></i> by
-          <a href="https://www.gusanche.dev">gusanche.dev</a>
+        <p class="developedBy">
+          Developed with <i class="fa-solid fa-heart"></i> by
+          <a href="https://www.gusanche.dev" target="_blank">gusanche.dev</a>
         </p>
       </div>
     </footer>
