@@ -1,7 +1,7 @@
 const ACCUWEATHER_API_KEY = "STS8XKAVsQmUA0sfiVWiGsxFSpw3wble";
-const ACCUWEATHER_CITY_SEARCH_API = `http://dataservice.accuweather.com/locations/v1/cities/search`;
-const ACCUWEATHER_CURRENT_CONDITIONS_API = `http://dataservice.accuweather.com/currentconditions/v1/`;
-const ACCUWEATHER_FORECAST_API = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
+const ACCUWEATHER_CITY_SEARCH_API = `https://dataservice.accuweather.com/locations/v1/cities/search`;
+const ACCUWEATHER_CURRENT_CONDITIONS_API = `https://dataservice.accuweather.com/currentconditions/v1/`;
+const ACCUWEATHER_FORECAST_API = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
 
 async function getCityInformation(city) {
   const citySearchUrl = `${ACCUWEATHER_CITY_SEARCH_API}?apikey=${ACCUWEATHER_API_KEY}&q=${city}`;
@@ -37,7 +37,7 @@ function createCitiesGrid(cities, resultsSection) {
   cities.forEach((city) => {
     const cityCard = document.createElement("div");
     cityCard.classList.add("city-card");
-    cityCard.id = city.Key;
+    cityCard.dataset.locationKey = city.Key;
     const cityMap = document.createElement("span");
     cityMap.classList.add("city-map");
     switch (city.Region.ID) {
@@ -84,7 +84,7 @@ function createCitiesGrid(cities, resultsSection) {
     cityData.append(elevationText, latitudeText, longitudeText);
     cityCard.append(cityData);
     cityCard.addEventListener("click", async () => {
-      const locationKey = cityCard.id;
+      const locationKey = cityCard.dataset.locationKey;
       const currentConditions = await getCurrentConditions(locationKey);
       console.log(currentConditions);
       // createCurrentWeatherGrid(currentConditions);
