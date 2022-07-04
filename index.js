@@ -2,6 +2,7 @@ const ACCUWEATHER_API_KEY = "STS8XKAVsQmUA0sfiVWiGsxFSpw3wble";
 const ACCUWEATHER_CITY_SEARCH_API = `https://dataservice.accuweather.com/locations/v1/cities/search`;
 const ACCUWEATHER_CURRENT_CONDITIONS_API = `https://dataservice.accuweather.com/currentconditions/v1/`;
 const ACCUWEATHER_FORECAST_API = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
+const ACCUWEATHER_ICONS_URL = `https://developer.accuweather.com/sites/default/files/`;
 
 async function getCityInformation(city) {
   const citySearchUrl = `${ACCUWEATHER_CITY_SEARCH_API}?apikey=${ACCUWEATHER_API_KEY}&q=${city}`;
@@ -10,7 +11,7 @@ async function getCityInformation(city) {
   return cityInformation;
 }
 async function getCurrentConditions(locationKey) {
-  const currentConditionsUrl = `${ACCUWEATHER_CURRENT_CONDITIONS_API}/${locationKey}?apikey=${ACCUWEATHER_API_KEY}&details=false`;
+  const currentConditionsUrl = `${ACCUWEATHER_CURRENT_CONDITIONS_API}/${locationKey}?apikey=${ACCUWEATHER_API_KEY}&details=true`;
   const res = await fetch(currentConditionsUrl);
   const currentConditions = await res.json();
   return currentConditions;
@@ -86,14 +87,47 @@ function createCitiesGrid(cities, resultsSection) {
     cityCard.addEventListener("click", async () => {
       const locationKey = cityCard.dataset.locationKey;
       const currentConditions = await getCurrentConditions(locationKey);
-      console.log(currentConditions);
-      // createCurrentWeatherGrid(currentConditions);
+      createCurrentWeatherCard(currentConditions, city.LocalizedName);
     });
     citiesContainer.append(cityCard);
   });
   console.log(resultsSection);
   console.log(cities);
   resultsSection.append(citiesContainer);
+}
+
+function createCurrentWeatherCard(currentConditions, city) {
+  const currentWeatherContainer = document.getElementById(
+    "current-weather-container"
+  );
+  const currentWeatherCard = document.createElement("div");
+  currentWeatherCard.innerHTML = `<div class="current-weather-card">
+                                    <div class="current-weather-header">
+                                      <div class="city-weather-container">
+                                        <div class="temperature-container">
+                                          <p>${currentConditions[0].Temperature.Metric.Value}° ${currentConditions[0].Temperature.Metric.Unit}</p>
+                                        </div>
+                                        <div class="city-data-container">
+                                          <p>${city}</p>
+                                          <p>${currentConditions[0].WeatherText}</p>
+                                          <p>${currentConditions[0].LocalObservationDateTime}</p>
+                                        </div>
+                                      </div>
+                                      <div class="weather-icon-container">
+                                        <img src="https://developer.accuweather.com/sites/default/files/0${currentConditions[0].WeatherIcon}-s.png" alt="" srcset="">
+                                      </div>
+                                    </div>
+                                    <div class="current-weather-data">
+                                      <div class="weather-data"><p>Relative Humidity</p><p>${currentConditions[0].RelativeHumidity}%</p></div>
+                                      <div class="weather-data"><p>Pressure</p><p>${currentConditions[0].Pressure.Metric.Value} ${currentConditions[0].Pressure.Metric.Unit}</p></div>
+                                      <div class="weather-data"><p>UV Index</p><p>${currentConditions[0].UVIndex} (${currentConditions[0].UVIndexText})</p></div>
+                                      <div class="weather-data"><p>Visibility</p><p>${currentConditions[0].Visibility.Metric.Value} ${currentConditions[0].Visibility.Metric.Unit}</p></div>
+                                      <div class="weather-data"><p>Wind</p><p>${currentConditions[0].Wind.Speed.Metric.Value} ${currentConditions[0].Wind.Speed.Metric.Unit} ${currentConditions[0].Wind.Direction.Localized}</p></div>
+                                    </div>
+                                  </div>`;
+  currentWeatherContainer.append(currentWeatherCard);
+  console.log("Current conditions:");
+  console.log(currentConditions);
 }
 
 function initialize() {
