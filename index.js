@@ -100,6 +100,8 @@ function createCurrentWeatherCard(currentConditions, city) {
   const currentWeatherContainer = document.getElementById(
     "current-weather-container"
   );
+  const localDateTime = new Date(currentConditions[0].LocalObservationDateTime)
+
   const currentWeatherCard = document.createElement("div");
   currentWeatherCard.innerHTML = `<div class="current-weather-card">
                                     <div class="current-weather-header">
@@ -110,11 +112,11 @@ function createCurrentWeatherCard(currentConditions, city) {
                                         <div class="city-data-container">
                                           <p>${city}</p>
                                           <p>${currentConditions[0].WeatherText}</p>
-                                          <p>${currentConditions[0].LocalObservationDateTime}</p>
+                                          <p>${localDateTime.toLocaleString()}</p>
                                         </div>
                                       </div>
                                       <div class="weather-icon-container">
-                                        <img src="https://developer.accuweather.com/sites/default/files/0${currentConditions[0].WeatherIcon}-s.png" alt="" srcset="">
+                                        <img src="https://developer.accuweather.com/sites/default/files/${currentConditions[0].WeatherIcon}-s.png" alt="" srcset="">
                                       </div>
                                     </div>
                                     <div class="current-weather-data">
