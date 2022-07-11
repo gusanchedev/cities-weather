@@ -30,6 +30,14 @@ function clearCitiesContainer() {
   }
   return;
 }
+function clearCurrentWeatherContainer() {
+  const container = document.getElementById("current-weather-card");
+  console.log(container);
+  if (container) {
+    container.remove();
+  }
+  return;
+}
 
 function createCitiesGrid(cities, resultsSection) {
   const citiesContainer = document.createElement("div");
@@ -100,31 +108,63 @@ function createCurrentWeatherCard(currentConditions, city) {
   const currentWeatherContainer = document.getElementById(
     "current-weather-container"
   );
-  const localDateTime = new Date(currentConditions[0].LocalObservationDateTime)
-
+  const localDateTime = new Date(currentConditions[0].LocalObservationDateTime);
+  if (currentConditions[0].WeatherIcon < 10) {
+    currentConditions[0].WeatherIcon = "0" + currentConditions[0].WeatherIcon;
+  }
   const currentWeatherCard = document.createElement("div");
-  currentWeatherCard.innerHTML = `<div class="current-weather-card">
+  currentWeatherCard.innerHTML = `<div class="current-weather-card" id="current-weather-card">
                                     <div class="current-weather-header">
                                       <div class="city-weather-container">
                                         <div class="temperature-container">
-                                          <p>${currentConditions[0].Temperature.Metric.Value}° ${currentConditions[0].Temperature.Metric.Unit}</p>
+                                          <p>${
+                                            currentConditions[0].Temperature
+                                              .Metric.Value
+                                          }° ${
+    currentConditions[0].Temperature.Metric.Unit
+  }</p>
                                         </div>
                                         <div class="city-data-container">
                                           <p>${city}</p>
-                                          <p>${currentConditions[0].WeatherText}</p>
+                                          <p>${
+                                            currentConditions[0].WeatherText
+                                          }</p>
                                           <p>${localDateTime.toLocaleString()}</p>
                                         </div>
                                       </div>
                                       <div class="weather-icon-container">
-                                        <img src="https://developer.accuweather.com/sites/default/files/${currentConditions[0].WeatherIcon}-s.png" alt="" srcset="">
+                                        <img src="https://developer.accuweather.com/sites/default/files/${
+                                          currentConditions[0].WeatherIcon
+                                        }-s.png" alt="" srcset="">
                                       </div>
                                     </div>
                                     <div class="current-weather-data">
-                                      <div class="weather-data"><p>Relative Humidity</p><p>${currentConditions[0].RelativeHumidity}%</p></div>
-                                      <div class="weather-data"><p>Pressure</p><p>${currentConditions[0].Pressure.Metric.Value} ${currentConditions[0].Pressure.Metric.Unit}</p></div>
-                                      <div class="weather-data"><p>UV Index</p><p>${currentConditions[0].UVIndex} (${currentConditions[0].UVIndexText})</p></div>
-                                      <div class="weather-data"><p>Visibility</p><p>${currentConditions[0].Visibility.Metric.Value} ${currentConditions[0].Visibility.Metric.Unit}</p></div>
-                                      <div class="weather-data"><p>Wind</p><p>${currentConditions[0].Wind.Speed.Metric.Value} ${currentConditions[0].Wind.Speed.Metric.Unit} ${currentConditions[0].Wind.Direction.Localized}</p></div>
+                                      <div class="weather-data"><p>Relative Humidity</p><p>${
+                                        currentConditions[0].RelativeHumidity
+                                      }%</p></div>
+                                      <div class="weather-data"><p>Pressure</p><p>${
+                                        currentConditions[0].Pressure.Metric
+                                          .Value
+                                      } ${
+    currentConditions[0].Pressure.Metric.Unit
+  }</p></div>
+                                      <div class="weather-data"><p>UV Index</p><p>${
+                                        currentConditions[0].UVIndex
+                                      } (${
+    currentConditions[0].UVIndexText
+  })</p></div>
+                                      <div class="weather-data"><p>Visibility</p><p>${
+                                        currentConditions[0].Visibility.Metric
+                                          .Value
+                                      } ${
+    currentConditions[0].Visibility.Metric.Unit
+  }</p></div>
+                                      <div class="weather-data"><p>Wind</p><p>${
+                                        currentConditions[0].Wind.Speed.Metric
+                                          .Value
+                                      } ${
+    currentConditions[0].Wind.Speed.Metric.Unit
+  } ${currentConditions[0].Wind.Direction.Localized}</p></div>
                                     </div>
                                   </div>`;
   currentWeatherContainer.append(currentWeatherCard);
@@ -142,6 +182,7 @@ function initialize() {
   searchButton.addEventListener("click", async () => {
     const cities = await getCityInformation(city.value);
     clearCitiesContainer();
+    clearCurrentWeatherContainer();
     createCitiesGrid(cities, resultsSection);
   });
 }
